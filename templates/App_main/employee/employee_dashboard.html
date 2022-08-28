@@ -1,0 +1,74 @@
+{% extends 'App_main/employee/base.html' %}
+{% load static %}
+{% block main %}
+    <link rel="stylesheet" href="{% static 'css/App_main/employee/employee_dashboard.css' %}">
+    <div class="cardBox">
+        <div class="card">
+            <div>
+                <div class="numbers">{{ total_pending_task.count }}</div>
+                <div class="cardName">
+                    Pending
+                </div>
+            </div>
+            <div class="iconBx">
+                <ion-icon name="eye-outline"></ion-icon>
+            </div>
+        </div>
+        <div class="card">
+            <div>
+                <div class="numbers">{{ total_started_task.count }}</div>
+                <div class="cardName">
+                    Started
+                </div>
+            </div>
+            <div class="iconBx">
+                <ion-icon name="eye-outline"></ion-icon>
+            </div>
+        </div>
+        <div class="card">
+            <div>
+                <div class="numbers">{{ total_running_task.count }}</div>
+                <div class="cardName">
+                    Running
+                </div>
+            </div>
+            <div class="iconBx">
+                <ion-icon name="eye-outline"></ion-icon>
+            </div>
+        </div>
+        <div class="card">
+            <div>
+                <div class="numbers">{{ total_Completed_task.count }}</div>
+                <div class="cardName">
+                    Completed
+                </div>
+            </div>
+            <div class="iconBx">
+                <ion-icon name="eye-outline"></ion-icon>
+            </div>
+        </div>
+    </div>
+    <div class="table-container">
+        <table>
+            <caption>Statement Summary</caption>
+            <thead>
+            <tr>
+                <th scope="col">Account</th>
+                <th scope="col">Due Date</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Period</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td data-label="Account">Visa - 3412</td>
+                <td data-label="Due Date">04/01/2016</td>
+                <td data-label="Amount">$1,190</td>
+                <td data-label="Period">03/01/2016 - 03/31/2016</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+

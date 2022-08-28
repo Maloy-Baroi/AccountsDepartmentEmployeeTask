@@ -1,0 +1,72 @@
+{% extends 'App_main/boss/boss_dashboard.html' %}
+{% load static %}
+{% block title %}
+    New Employee Adder
+{% endblock %}
+{% block main %}
+    <link rel="stylesheet" href="{% static 'css/App_main/boss/add-new-employee.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <div class="all-container">
+        <div class="form-container" id="id-signup-form-container">
+            <form id="id-signupForm" action="{% url 'App_main:boss-employee-signup' %}" method="post"
+                  enctype="multipart/form-data">
+                {% csrf_token %}
+                <legend>
+                    Add new Employee
+                </legend>
+                <fieldset>
+                    {{ signupForm.as_p }}
+                </fieldset>
+                <div class="submission-btn-container">
+                    <button type="submit" class="btn btn-done btn-md">Submit</button>
+                </div>
+            </form>
+        </div>
+        <div class="form-container" id="id-profile-form-container">
+            <form id="id-employee-profileForm" action="{% url 'App_main:boss-employee-profile-setup' %}" method="post"
+                  enctype="multipart/form-data">
+                {% csrf_token %}
+                <legend>
+                    Create new Employee Profile
+                </legend>
+                <fieldset>
+                    {{ employeeProfileForm.as_p }}
+                </fieldset>
+                <div class="submission-btn-container">
+                    <button type="submit" class="btn btn-done btn-md">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {#    <script>#}
+    {#        $(document).on('submit', '#id-signupForm', function (e) {#}
+    {#            e.preventDefault();#}
+    {#            $.ajax({#}
+    {#                type: 'Post',#}
+    {#                url: '/boss-employee-signup/',#}
+    {#                data: {#}
+    {#                    email: $('id_email').val(),#}
+    {#                    password1: $('id_password1'),#}
+    {#                    password2: $('id_password2'),#}
+    {#                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),#}
+    {#                },#}
+    {#                success: function (data) {#}
+    {#                    Swal.fire(#}
+    {#                        'Congratulations!',#}
+    {#                        data,#}
+    {#                        'success'#}
+    {#                    )#}
+    {#                }#}
+    {#            })#}
+    {#        });#}
+    {#    </script>#}
+
+    <script>
+        let inputs = document.getElementsByTagName('input');
+        for (const input of inputs) {
+            input.classList.add('input-controller');
+        }
+    </script>
+{% endblock %}

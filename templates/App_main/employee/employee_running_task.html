@@ -1,0 +1,52 @@
+{% extends 'App_main/employee/base.html' %}
+{% load static %}
+{% block main %}
+    <link rel="stylesheet" href="{% static 'css/App_main/employee/employee_task_manager.css' %}">
+    <div class="table-container">
+        <table>
+            <caption>New Task</caption>
+            <thead>
+            <tr>
+                <th scope="col">Task Name</th>
+                <th scope="col">Assigned to</th>
+                <th scope="col">Task Overview</th>
+                <th scope="col">Status</th>
+                <th scope="col">Deadline</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if run_tasks %}
+                {% for task in run_tasks %}
+                    <tr>
+                        <td data-label="Task Name">{{ task.task_name }}</td>
+                        <td data-label="Assigned to">{{ task.assigned_to }}</td>
+                        <td data-label="Task Overview">{{ task.work_overview }}</td>
+                        <td data-label="Status">{{ task.task_status }}</td>
+                        {% if task.deadline %}
+                            <td data-label="Deadline">{{ task.deadline.date }}</td>
+                        {% else %}
+                            <td data-label="Dateline">
+                                Not Mentioned
+                            </td>
+                        {% endif %}
+                        <td data-label="Action">
+                            {% if task.task_status == 'Assigned' %}
+                                <button class="btn btn-primary"
+                                        onclick="window.location.href='{% url "App_main:employee-task-status-change" pk=task.id status='Started' %}'">
+                                    Started
+                                </button>
+                            {% elif task.task_status == 'Started' %}
+                                <button class="btn btn-done"
+                                        onclick="window.location.href='{% url "App_main:employee-task-status-change" pk=task.id status='Completed' %}'">
+                                    Completed
+                                </button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

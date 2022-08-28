@@ -1,0 +1,56 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Marcellus', serif !important;
+}
+
+
+.google_marcellus_SC {
+    font-family: 'Marcellus', serif !important;
+}
+
+.heading-1 {
+    width: 100%;
+    text-align: center;
+}
+
+.size-3-vw {
+    font-size: 3vw !important;
+}
+
+.heading-1 span::before {
+    width: 50px;
+    content: "≕";
+    position: absolute;
+    margin-left: -50px;
+    color: rgb(215, 55, 57);
+}
+
+.heading-1 span::after {
+    width: 50px;
+    content: "≔";
+    position: absolute;
+    margin-right: -50px;
+    color: rgb(215, 55, 57);
+}
+
+.padding-bottom-0 {
+    padding-bottom: 0 !important;
+}
+
+.bg_blue_site {
+    background: #131b43 !important;
+}
+
+.footer_content {
+    background: rgba(30,76,114,0.9) !important;
+}
+
+.no-padding-left {
+    padding-left: 0 !important;
+}
+
+input {
+    font-family: 'Marcellus', serif !important;
+}
+

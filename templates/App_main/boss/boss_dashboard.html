@@ -1,0 +1,44 @@
+{% extends 'App_main/boss/base.html' %}
+{% load static %}
+{% block title %}
+
+{% endblock %}
+{% block main %}
+    <link rel="stylesheet" href="{% static 'css/App_main/boss/boss_dashboard.css' %}">
+    <div class="cardBox">
+        <div class="card">
+            <div>
+                <div class="numbers">{{ total_employee }}</div>
+                <div class="cardName">
+                    Total Employees
+                </div>
+            </div>
+            <div class="iconBx">
+                <ion-icon name="people-outline"></ion-icon>
+            </div>
+        </div>
+        <div class="card">
+            <div>
+                <div class="numbers">{{ total_jobs }}</div>
+                <div class="cardName">
+                    Total Jobs
+                </div>
+            </div>
+            <div class="iconBx">
+                <ion-icon name="bag-outline"></ion-icon>
+            </div>
+        </div>
+        <div class="card">
+            <div>
+                <div class="numbers">{{ total_jobs_running }}</div>
+                <div class="cardName">
+                    Total Job Running
+                </div>
+            </div>
+            <div class="iconBx">
+                <ion-icon name="qr-code-outline"></ion-icon>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

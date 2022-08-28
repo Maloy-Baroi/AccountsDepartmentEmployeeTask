@@ -1,0 +1,132 @@
+{% extends 'App_main/boss/boss_dashboard.html' %}
+{% load static %}
+{% block title %}
+    Task Manager
+{% endblock %}
+{% block main %}
+    <link rel="stylesheet" href="{% static 'css/App_main/boss/boss_task_manager.css' %}">
+    <div class="all-container">
+        <div class="container" id="id-task-table-container">
+            <table id="id-task-table">
+                <h2 class="table-caption">Task List</h2>
+                <div class="search-container">
+                    <button class="btn btn-done btn-md" onclick="FilterKeyWord('Completed')">
+                        Completed
+                    </button>
+                    <button class="btn btn-waiting btn-md" onclick="FilterKeyWord('Pending')">
+                        Pending
+                    </button>
+                    <button class="btn btn-primary btn-md" onclick="FilterKeyWord('Assigned')">
+                        Assigned
+                    </button>
+                    <button class="btn btn-new btn-big" onclick="assignNewTask(1)">Assign New Task</button>
+                </div>
+                <thead>
+                <tr>
+                    <th scope="col">Task Name</th>
+                    <th scope="col">Assigned to</th>
+                    <th scope="col">Task Overview</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Deadline</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if tasks %}
+                    {% for task in tasks %}
+                        <tr>
+                            <td data-label="Task Name">{{ task.task_name }}</td>
+                            <td data-label="Assigned to">{{ task.assigned_to }}</td>
+                            <td data-label="Task Overview">{{ task.work_overview }}</td>
+                            <td data-label="Status">{{ task.task_status }}</td>
+                            {% if task.deadline %}
+                                <td data-label="Deadline">{{ task.deadline.date }}</td>
+                            {% else %}
+                                <td data-label="Dateline">
+                                    Not Mentioned
+                                </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <td data-label="Task Name">
+                        <ion-icon name="cloud-offline-outline"></ion-icon>
+                    </td>
+                    <td data-label="Assigned to">
+                        <ion-icon name="cloud-offline-outline"></ion-icon>
+                    </td>
+                    <td data-label="Task Overview">
+                        <ion-icon name="cloud-offline-outline"></ion-icon>
+                    </td>
+                    <td data-label="Status">
+                        <ion-icon name="cloud-offline-outline"></ion-icon>
+                    </td>
+                    <td data-label="Dateline">
+                        <ion-icon name="cloud-offline-outline"></ion-icon>
+                    </td>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+        <div class="form-container" id="id-assign-new-task-container">
+            <form action="{% url 'App_main:boss-assign-new-task' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <legend>
+                    Assign New Task
+                </legend>
+                <fieldset>
+                    <button type="button" class="btn btn-disclose btn-new btn-md" onclick="assignNewTask(0)">
+                        X
+                    </button>
+                    {{ taskForm.as_p }}
+                </fieldset>
+                <div class="submission-btn-container">
+                    <button type="submit" class="btn btn-done btn-md">Submit</button>
+                    <button class="btn btn-disclose btn-md" type="button" onclick="assignNewTask(0)">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let inputs = document.getElementsByTagName('input');
+        for (const input of inputs) {
+            input.classList.add('input-controller');
+        }
+
+        const assignNewTask = (value) => {
+            let taskTable = document.getElementById('id-task-table-container');
+            let newTaskForm = document.getElementById('id-assign-new-task-container');
+            if (value === 0) {
+                taskTable.style.display = 'block';
+                newTaskForm.style.display = 'none';
+            }
+            else if (value === 1) {
+                taskTable.style.display = 'none';
+                newTaskForm.style.display = 'block';
+            }
+        }
+
+        const FilterKeyWord = (searchInput) => {
+            // Declare variables
+            let input, filter, table, tr, td, i;
+            input = searchInput;
+            filter = input.toLowerCase();
+            table = document.getElementById("id-task-table");
+            tr = table.getElementsByTagName("tr");
+
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[3];
+                // change index to change your column search
+
+                if (td) {
+                    if (td.innerHTML.toLowerCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+{% endblock %}
